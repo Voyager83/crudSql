@@ -1,0 +1,24 @@
+<mat-drawer-container class="example-container" autosize>
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">>>></button>
+  </div>
+  <mat-drawer #drawer class="example-sidenav" mode="over">
+    <mat-list role="list">
+      <mat-list-item (click)="abrirTabela()">
+        <span class="mat-menu-span">Cadastro Pessoa</span>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <button mat-raised-button color="primary" routerLink="/tabela">
+        Ir para a Tabela
+      </button>
+
+
+    </mat-list>
+
+
+  </mat-drawer>
+
+</mat-drawer-container>
+
