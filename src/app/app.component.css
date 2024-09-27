@@ -1,0 +1,15 @@
+.body {
+  min-height: calc(100vh - 124px);
+}
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidenav-content {
+  width: 250px; /* Adjust the width of the sidenav */
+}
+
+.main-content {
+  padding: 20px;
+}
