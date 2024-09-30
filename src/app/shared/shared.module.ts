@@ -15,10 +15,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatActionList, MatListItem, MatListModule } from '@angular/material/list';
+import {
+  MatActionList,
+  MatListItem,
+  MatListModule,
+} from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import {FormsModule} from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -48,6 +53,7 @@ import {FormsModule} from '@angular/forms';
     FormGroup,
     Validators,
     MatDialog,
+    MatGridListModule,
     FormsModule,
   ],
   exports: [
@@ -78,8 +84,6 @@ import {FormsModule} from '@angular/forms';
     MatDialog,
     FormsModule,
     SharedModule,
-  ]
-
-
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

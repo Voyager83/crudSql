@@ -1,89 +1,145 @@
 <div class="input">
   <form [formGroup]="formCrud" style="display: flex; flex-direction: row; gap: 8px">
-    <mat-form-field class="w-33">
-      <mat-label>Nome:</mat-label>
-      <input matInput type="text" id="nome" formControlName="nome" maxlength="=45" required />
-    </mat-form-field>
+    <mat-grid-list cols="14" class="w-100">
 
-    <mat-form-field class="w-33">
-      <mat-label>Data de Nascimento:</mat-label>
-      <input formControlName="dataNascimento" matInput [matDatepicker]="dataNascimento" required />
-      <mat-datepicker-toggle [for]="dataNascimento" matSuffix></mat-datepicker-toggle>
-      <mat-datepicker #dataNascimento></mat-datepicker>
-      <mat-error *ngIf="formCrud.get('dataNascimento')?.hasError('dataFutura')">
-        A data de nascimento não pode ser futura.
-      </mat-error>
-      <mat-datepicker #dataNascimento></mat-datepicker>
-    </mat-form-field>
 
-    <mat-form-field class="w-33">
-      <mat-label>Profissao:</mat-label>
-      <mat-select id="profissao" formControlName="profissao" matInput>
-        <mat-option value="pedreiro">Pedreiro</mat-option>
-        <mat-option value="adm">ADM</mat-option>
-        <mat-option value="desenvolvedor">Desenvolvedor</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="4" [rowspan]="1" gutterSize="24px"> <!-- NOME -->
+        <mat-form-field class="w-33">
+          <mat-label>Nome:</mat-label>
+          <input matInput type="text" id="nome" formControlName="nome" maxlength="50" required />
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="w-33">
-      <mat-label>Número de Telefone:</mat-label>
-      <span matTextPrefix> &nbsp;</span>
-      <input matInput type="tel" id="telefone" formControlName="telefone" minlength="10" maxlength="11" required
-        matInput placeholder="(xx)9xxxx-xxxx" />
-    </mat-form-field>
+      <mat-grid-tile [colspan]="2" [rowspan]="1"> <!-- DATA NASCIMENTO -->
+        <mat-form-field class="w-33">
+          <mat-label>Data de Nascimento:</mat-label>
+          <input formControlName="dataNascimento" matInput [matDatepicker]="dataNascimento" required />
+          <mat-datepicker-toggle [for]="dataNascimento" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #dataNascimento></mat-datepicker>
+          <mat-error *ngIf="formCrud.get('dataNascimento')?.hasError('dataFutura')">
+            A data de nascimento não pode ser futura.
+          </mat-error>
+          <mat-datepicker #dataNascimento></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="w-33">
-      <mat-label>RG:</mat-label>
-      <input matInput type="text" id="rg" formControlName="rg" pattern="[0-9]*" minlength="9" maxlength="9" required />
-      <mat-error *ngIf="formCrud.get('rg')?.hasError('pattern')">
-        O RG deve conter apenas números.
-      </mat-error>
-      <mat-error *ngIf="
+      <mat-grid-tile [colspan]="1" [rowspan]="1"> <!-- SEXO -->
+        <mat-form-field class="w-33">
+          <mat-label>Sexo:</mat-label>
+          <mat-select id="sexo" formControlName="sexo" matInput>
+            <mat-option value="feminino">Feminino</mat-option>
+            <mat-option value="masculino">Masculino</mat-option>
+            <mat-option value="outros">Outros</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1"> <!-- TELEFONE -->
+        <mat-form-field class="w-33">
+          <mat-label>Número de Telefone:</mat-label>
+          <span matTextPrefix> &nbsp;</span>
+          <input matInput type="tel" id="telefone" formControlName="telefone" minlength="10" maxlength="11" required
+            matInput placeholder="(xx)9xxxx-xxxx" />
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1"> <!-- RG -->
+        <mat-form-field class="w-33">
+          <mat-label>RG:</mat-label>
+          <input matInput type="text" id="rg" formControlName="rg" pattern="[0-9]*" minlength="9" maxlength="9"
+            required />
+          <mat-error *ngIf="formCrud.get('rg')?.hasError('pattern')">
+            O RG deve conter apenas números.
+          </mat-error>
+          <mat-error *ngIf="
             formCrud.get('rg')?.hasError('minlength') ||
             formCrud.get('rg')?.hasError('maxlength')
           ">
-        O RG deve ter 9 dígitos.
-      </mat-error>
-      <mat-error *ngIf="formCrud.get('rg')?.hasError('duplicate')">
-        Este RG já foi cadastrado.
-      </mat-error>
-    </mat-form-field>
+            O RG deve ter 9 dígitos.
+          </mat-error>
+          <mat-error *ngIf="formCrud.get('rg')?.hasError('duplicate')">
+            Este RG já foi cadastrado.
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="w-33">
-      <mat-label>Email:</mat-label>
-      <input matInput type="text" id="email" formControlName="email" required />
-    </mat-form-field>
+      <mat-grid-tile [colspan]="2" [rowspan]="1"> <!-- CPF  FALTA VALIDAR-->
+        <mat-form-field class="w-33">
+          <mat-label>CPF:</mat-label>
+          <input matInput type="text" id="cpf" formControlName="cpf" pattern="[0-9]*" minlength="11" maxlength="11"
+            required />
+          <mat-error *ngIf="formCrud.get('cpf')?.hasError('pattern')">
+            O CPF deve conter apenas números.
+          </mat-error>
+          <mat-error *ngIf="
+            formCrud.get('cpf')?.hasError('minlength') ||
+            formCrud.get('cpf')?.hasError('maxlength')
+          ">
+            O Cpf deve ter 11 dígitos.
+          </mat-error>
+          <mat-error *ngIf="formCrud.get('cpf')?.hasError('duplicate')">
+            Este CPF já foi cadastrado.
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <button mat-raised-button color="primary" (click)="onIncluirPessoa()">
-      Incluir
-    </button>
-    <button mat-raised-button color="primary" (click)="limparCampos()">
-      Limpar Campo
-    </button>
+      <mat-grid-tile [colspan]="2" [rowspan]="1"> <!-- SALARIO, fazer a grid-->
+        <mat-form-field class="w-33" floatLabel="always">
+          <mat-label>Salario</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="0" />
+          <span matTextPrefix>R$&nbsp;</span>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"> <!-- ALTURA FALTA VALIDAR, fazer a grid -->
+        <mat-form-field class="w-33" floatLabel="always">
+          <mat-label>Altura</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="0" />
+          <span matTextPrefix>M&nbsp;</span>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1"> <!-- PESO FALTA VALIDAR, fazer a grid -->
+        <mat-form-field class="w-33" floatLabel="always">
+          <mat-label>Peso</mat-label>
+          <input matInput type="number" class="example-right-align" placeholder="0" />
+          <span matTextPrefix>KG&nbsp;</span>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="4" [rowspan]="1"> <!-- BOTOES -->
+        <button mat-raised-button color="primary" (click)="onIncluirPessoa()">
+          Incluir
+        </button>
+        <button mat-raised-button color="primary" (click)="limparCampos()">
+          Limpar Campo
+        </button>
+      </mat-grid-tile>
+    </mat-grid-list>
   </form>
 </div>
 
 <div class="lista">
   <table mat-table #table [dataSource]="pessoas" class="mat-elevation-z8" *ngIf="pessoas.length > 0">
-    <!-- Position Column -->
+    <!-- Coluna posição -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>No.</th>
       <td mat-cell *matCellDef="let pessoa">{{ pessoa?.id }}</td>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Coluna -->
     <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef>Aluno</th>
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
       <td mat-cell *matCellDef="let pessoa">{{ pessoa?.nome }}</td>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="profissao">
-      <th mat-header-cell *matHeaderCellDef>Profisao</th>
-      <td mat-cell *matCellDef="let pessoa">{{ pessoa?.profissao }}</td>
+    <!-- Coluna sexo -->
+    <ng-container matColumnDef="sexo">
+      <th mat-header-cell *matHeaderCellDef>Sexo</th>
+      <td mat-cell *matCellDef="let pessoa">{{ pessoa?.sexo }}</td>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <!-- Coluna data de nascimento -->
     <ng-container matColumnDef="dataNascimento">
       <th mat-header-cell *matHeaderCellDef>Idade</th>
       <td mat-cell *matCellDef="let pessoa">
@@ -91,7 +147,7 @@
       </td>
     </ng-container>
 
-    <!-- Symbol tel -->
+    <!-- Coluna telefone -->
     <ng-container matColumnDef="telefone">
       <th mat-header-cell *matHeaderCellDef>Telefone</th>
       <td mat-cell *matCellDef="let pessoa">
@@ -99,7 +155,7 @@
       </td>
     </ng-container>
 
-    <!-- Symbol RG -->
+    <!-- Coluna RG -->
     <ng-container matColumnDef="rg">
       <th mat-header-cell *matHeaderCellDef>RG</th>
       <td mat-cell *matCellDef="let pessoa">
@@ -107,9 +163,17 @@
       </td>
     </ng-container>
 
-    <!-- Symbol actions -->
+    <!-- Coluna CPF -->
+    <ng-container matColumnDef="cpf">
+      <th mat-header-cell *matHeaderCellDef>CPF</th>
+      <td mat-cell *matCellDef="let pessoa">
+        {{ pessoa?.cpf }}
+      </td>
+    </ng-container>
+
+    <!-- Coluna simbolos botoes -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <th mat-header-cell *matHeaderCellDef>:D</th>
       <td mat-cell *matCellDef="let pessoa">
         <button mat-icon-button color="" (click)="editarPessoa(pessoa)">
           <mat-icon>edit</mat-icon>
@@ -124,10 +188,11 @@
     <tr mat-header-row *matHeaderRowDef="[
           'id',
           'nome',
-          'profissao',
+          'sexo',
           'dataNascimento',
           'telefone',
           'rg',
+          'cpf',
           'actions'
         ]"></tr>
     <tr mat-row *matRowDef="
@@ -135,10 +200,11 @@
           columns: [
             'id',
             'nome',
-            'profissao',
+            'sexo',
             'dataNascimento',
             'telefone',
             'rg',
+            'cpf',
             'actions'
           ]
         "></tr>

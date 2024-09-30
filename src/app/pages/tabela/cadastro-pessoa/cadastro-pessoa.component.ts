@@ -1,8 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ElementDialogComponent } from '../../../shared/element-dialog/element-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,10 +20,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatActionList, MatListItem, MatListModule } from '@angular/material/list';
+import {
+  MatActionList,
+  MatListItem,
+  MatListModule,
+} from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ChangeDetectionStrategy, signal } from '@angular/core';
 
 export function dataNascimentoValidator(
   control: AbstractControl
@@ -35,7 +46,8 @@ export function dataNascimentoValidator(
   templateUrl: './cadastro-pessoa.component.html',
   styleUrl: './cadastro-pessoa.component.css',
   standalone: true,
-  imports:[ReactiveFormsModule,
+  imports: [
+    ReactiveFormsModule,
     CommonModule,
     MatInputModule,
     MatFormFieldModule,
@@ -54,25 +66,30 @@ export function dataNascimentoValidator(
     MatIconModule,
     MatListItem,
     MatTabsModule,
-    ]
+    MatGridListModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CadastroPessoaComponent {
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.formCrud = fb.group({
       nome: ['', Validators.required],
       dataNascimento: [[new Date()], [Validators.required]],
-      profissao: [''],
+      sexo: [''],
       telefone: ['', [Validators.required, this.validatePhoneNumber]],
       rg: [''],
-      email: [''],
+      cpf: ['', [Validators.required]],
     });
 
-    this.formCrud
-      .get('dataNascimento')
-      ?.setValidators(dataNascimentoValidator);
+    this.formCrud.get('dataNascimento')?.setValidators(dataNascimentoValidator);
   }
   validatePhoneNumber(control: AbstractControl): { [key: string]: any } | null {
-    const phoneNumberPattern = /^\d+$/; // Expressão regular para aceitar apenas números
+    const phoneNumberPattern = /^\d+$/; // Expressão  para aceitar apenas números
     const valid = phoneNumberPattern.test(control.value); // Verifique se o valor contém apenas números
     return valid ? null : { invalidPhoneNumber: true }; // Retorne um objeto de erro se o valor não for válido
   }
@@ -91,10 +108,11 @@ export class CadastroPessoaComponent {
   displayedColumns: string[] = [
     'id',
     'nome',
-    'profissao',
+    'sexo',
     'dataNascimento',
     'telefone',
     'rg',
+    'cpf',
     'actions',
   ];
   excluirPessoa(id: number) {
@@ -113,12 +131,15 @@ export class CadastroPessoaComponent {
   mostrarTabela: boolean | undefined;
 
   public onIncluirPessoa() {
+    //função do botão incluir com as validações
+
     if (this.formCrud.invalid) {
       console.log('Por favor, preencha todos os campos');
       return;
     }
     let pessoa: Pessoa = {} as Pessoa;
-    // Verificar se o RG já existe
+
+    // Verificar se o RG já existe ================================================
     const rg = this.formCrud.get('rg')?.value;
     const rgExists = this.pessoas.some((c) => c.rg === rg);
 
@@ -126,20 +147,32 @@ export class CadastroPessoaComponent {
       this.formCrud.get('rg')?.setErrors({ duplicate: true });
       return; // Abortar a adição se o RG já existe
     }
+    // ============================================================================
 
-    // NOME DO ALUNO
-    pessoa.nome = this.formCrud.get('nome')?.value;
-    // DATA DE NASCIMENTO
-    pessoa.dataNascimento = this.formCrud
+    // Verificar se o CPF já existe ===============================================
+    const cpf = this.formCrud.get('cpf')?.value;
+    const cpfExists = this.pessoas.some((c) => c.cpf === cpf);
+
+    if (cpfExists) {
+      this.formCrud.get('cpf')?.setErrors({ duplicate: true });
+      return; // Abortar a adição se o CPF já existe
+    }
+    // =============================================================================
+
+    pessoa.nome = this.formCrud.get('nome')?.value; // NOME
+
+    pessoa.dataNascimento = this.formCrud // DATA DE NASCIMENTO
       .get('dataNascimento')
       ?.value.toDateString('DD/MM/yyyy');
-    // Profisao
-    pessoa.profissao = this.formCrud.get('profissao')?.value;
-    // TELEFONE
-    pessoa.telefone = this.formCrud.get('telefone')?.value;
-    // RG
-    pessoa.rg = this.formCrud.get('rg')?.value;
-    pessoa.email = this.formCrud.get('email')?.value;
+
+    pessoa.sexo = this.formCrud.get('sexo')?.value; // SEXO
+
+    pessoa.telefone = this.formCrud.get('telefone')?.value; // TELEFONE
+
+    pessoa.rg = this.formCrud.get('rg')?.value; // RG
+
+    pessoa.cpf = this.formCrud.get('cpf')?.value; // CPF
+
     pessoa.id = this.pessoas.length + 1;
     this.pessoas.push(pessoa);
     console.log(this.pessoas);
@@ -156,9 +189,8 @@ export interface Pessoa {
   nome: string;
   dataNascimento: Date;
   id: number;
-  profissao: string;
+  sexo: string;
   telefone: number;
   rg: number;
-  email: string;
+  cpf: number;
 }
-

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Pessoa } from '../../pages/tabela/tabela.component';
+import { Pessoa } from '../../pages/tabela/cadastro-pessoa/cadastro-pessoa.component';
 
 @Component({
   selector: 'app-element-dialog',

@@ -9,4 +9,5 @@ import { MatTable } from '@angular/material/table';
 })
 export class AppComponent {
   opened = false;
+  estaNoCadastroPessoa = false;
 }

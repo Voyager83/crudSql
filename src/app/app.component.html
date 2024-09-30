@@ -2,6 +2,19 @@
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidenav-content">
     <!-- Sidenav content goes here -->
     <p>Sidenav Content</p>
+    <mat-list role="list">
+      <mat-list-item>
+        <span class="mat-menu-span">Cadastro Pessoa</span>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+
+      <button mat-raised-button color="primary" routerLink="/tabela">
+        Ir para a Tabela
+      </button>
+
+
+    </mat-list>
   </mat-sidenav>
 
   <mat-sidenav-content>

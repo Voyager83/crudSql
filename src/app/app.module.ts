@@ -31,12 +31,14 @@ import {
   MatListModule,
 } from '@angular/material/list';
 import { TabelaComponent } from './pages/tabela/tabela.component';
-import { InputCamposComponent } from './input-campos/input-campos.component';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { CadastroContatoComponent } from './pages/tabela/cadastro-contato/cadastro-contato.component';
 import { CadastroPessoaComponent } from './pages/tabela/cadastro-pessoa/cadastro-pessoa.component';
-
+import { CadastroEnderecoComponent } from './pages/tabela/cadastro-endereco/cadastro-endereco.component';
+import { TabelaPessoaComponent } from './pages/tabela/tabela-pessoa/tabela-pessoa.component';
+import { TabelaContatoComponent } from './pages/tabela/tabela-contato/tabela-contato.component';
+import { TabelaEnderecoComponent } from './pages/tabela/tabela-endereco/tabela-endereco.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +48,6 @@ import { CadastroPessoaComponent } from './pages/tabela/cadastro-pessoa/cadastro
     FooterComponent,
     ElementDialogComponent,
     TabelaComponent,
-    InputCamposComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -75,6 +74,10 @@ import { CadastroPessoaComponent } from './pages/tabela/cadastro-pessoa/cadastro
     MatTabsModule,
     CadastroContatoComponent,
     CadastroPessoaComponent,
+    CadastroEnderecoComponent,
+    TabelaPessoaComponent,
+    TabelaContatoComponent,
+    TabelaEnderecoComponent,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
